@@ -2,6 +2,8 @@ import express from "express";
 import morgan from "morgan";
 import path from "path";
 import { fileURLToPath } from "url";
+import { PORT } from "./config/serverConfig.js";
+import apiRouter from "./routes/apiRouter.js";
 
 const app = express();
 
@@ -16,6 +18,8 @@ app.use(morgan("combined"));
 app.use(express.json());
 app.use(express.text());
 app.use(express.urlencoded({ extended: true }));
+
+app.use("/api", apiRouter);
 
 app.get("/", (req, res) => {
   res.render("home", { name: "Bhavana Matavalam" });
@@ -44,6 +48,6 @@ app.all("*", (req, res) => {
   });
 });
 
-app.listen(3000, () => {
-  console.log("Server is running on port 3000");
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}...`);
 });
