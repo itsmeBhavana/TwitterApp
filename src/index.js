@@ -4,6 +4,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { PORT } from "./config/serverConfig.js";
 import apiRouter from "./routes/apiRouter.js";
+import connectDB from "./config/dbConfig.js";
 
 const app = express();
 
@@ -50,4 +51,5 @@ app.all("*", (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}...`);
+  connectDB();
 });
