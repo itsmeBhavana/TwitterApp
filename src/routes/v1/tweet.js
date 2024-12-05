@@ -1,18 +1,25 @@
 import express from "express";
 import {
-  getTweetById,
   getTweets,
   createTweet,
+  deleteTweet,
+  updateTweet,
 } from "../../controllers/tweetController.js";
 import { validate } from "../../validators/zodValidator.js";
 import { tweetZodSchema } from "../../validators/tweetZodSchema.js";
+import { getTweet } from "../../controllers/tweetController.js";
+import { getTweetByIdManualValidator } from "../../validators/tweetManualValidation.js";
 
 const router = express.Router();
 
 router.get("/", getTweets);
 
-router.get("/:id", getTweetById);
+router.get("/:id", getTweetByIdManualValidator, getTweet);
 
 router.post("/", validate(tweetZodSchema), createTweet);
+
+router.delete("/:id", getTweetByIdManualValidator, deleteTweet);
+
+router.put("/:id", getTweetByIdManualValidator, updateTweet);
 
 export default router;
