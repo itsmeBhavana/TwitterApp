@@ -12,10 +12,14 @@ export const signInUser = async (req, res) => {
       email: req.body.email,
       password: req.body.password,
     });
+    res.cookie("token", token, {
+      httpOnly: true,
+      sameSite: "strict",
+      maxAge: 3600000,
+    });
     return successResponse(
       res,
       {
-        token,
         user: { id: user._id, email: user.email, username: user.username },
       },
       StatusCodes.OK,

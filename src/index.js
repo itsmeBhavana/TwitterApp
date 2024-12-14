@@ -5,6 +5,7 @@ import { fileURLToPath } from "url";
 import { PORT } from "./config/serverConfig.js";
 import apiRouter from "./routes/apiRouter.js";
 import connectDB from "./config/dbConfig.js";
+import cookieParser from "cookie-parser";
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.use(morgan("combined"));
 app.use(express.json());
 app.use(express.text());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 app.use("/api", apiRouter);
 
